@@ -1,153 +1,600 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Morris Knolls - Crisis Resource Guide</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f9fcff;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background: #0047ab;
-      color: white;
-      padding: 2em;
-      text-align: center;
-    }
-
-    h1, h2 {
-      margin: 0.5em 0;
-    }
-
-    .container {
-      max-width: 960px;
-      margin: auto;
-      padding: 2em;
-    }
-
-    .category {
-      margin-bottom: 2em;
-    }
-
-    .checkbox-option {
-      display: flex;
-      align-items: center;
-      margin-bottom: 0.5em;
-    }
-
-    .checkbox-option input {
-      margin-right: 0.5em;
-    }
-
-    #results {
-      margin-top: 3em;
-      background: #ffffff;
-      padding: 1.5em;
-      border-left: 5px solid #0047ab;
-      display: none;
-    }
-
-    #submitBtn {
-      display: block;
-      margin: 2em auto;
-      padding: 1em 2em;
-      font-size: 1.2em;
-      background-color: #0047ab;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    footer {
-      margin-top: 3em;
-      padding: 2em;
-      background: #eee;
-      text-align: center;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morris Knolls Mental Health Resources</title>
+    <style>
+        :root {
+            --blue: #4a86e8;
+            --yellow: #ffd966;
+            --pink: #ff9eea;
+            --green: #93c47d;
+            --red: #e06666;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--blue), var(--green));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--blue);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .resource-finder {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .resource-section {
+            margin-bottom: 2rem;
+        }
+        
+        .question-container {
+            margin-bottom: 1.5rem;
+        }
+        
+        .question {
+            background-color: var(--blue);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .question:hover {
+            background-color: #3a76d8;
+        }
+        
+        .options-container {
+            display: none;
+            background-color: #f9f9f9;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        
+        .option-btn {
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 0.7rem 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        .option-btn.blue {
+            background-color: var(--blue);
+            color: white;
+        }
+        
+        .option-btn.yellow {
+            background-color: var(--yellow);
+            color: #333;
+        }
+        
+        .option-btn.pink {
+            background-color: var(--pink);
+            color: #333;
+        }
+        
+        .option-btn.green {
+            background-color: var(--green);
+            color: white;
+        }
+        
+        .option-btn.red {
+            background-color: var(--red);
+            color: white;
+        }
+        
+        .option-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .results-container {
+            display: none;
+            padding: 1.5rem;
+            background-color: #f0f7ff;
+            border-radius: 8px;
+            margin-top: 2rem;
+            border-left: 5px solid var(--blue);
+        }
+        
+        .resource-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--pink);
+        }
+        
+        .resource-card.school {
+            border-left-color: var(--blue);
+        }
+        
+        .resource-card.hotline {
+            border-left-color: var(--red);
+        }
+        
+        .resource-card.app {
+            border-left-color: var(--green);
+        }
+        
+        .resource-card.community {
+            border-left-color: var(--yellow);
+        }
+        
+        .hotlines {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .hotline-list {
+            list-style-type: none;
+        }
+        
+        .hotline-item {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .hotline-name {
+            font-weight: bold;
+            color: var(--blue);
+        }
+        
+        .hotline-number {
+            font-weight: bold;
+            color: var(--red);
+        }
+        
+        .report-section {
+            background-color: var(--yellow);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .report-email {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            background-color: white;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .report-email:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-
-<header>
-  <h1>Morris Knolls Student Support</h1>
-  <p>Your guide to finding help when life feels overwhelming.</p>
-</header>
-
-<div class="container">
-  <div class="category">
-    <h2>Mental & Emotional Health</h2>
-    <div class="checkbox-option">
-      <input type="checkbox" class="btn-option" data-tag="anxiety" id="anxiety">
-      <label for="anxiety">I feel anxious or overwhelmed</label>
+    <header>
+        <h1>Morris Knolls Mental Health Resources</h1>
+        <p>Support and resources for all students in times of need</p>
+    </header>
+    
+    <div class="container">
+        <div class="intro">
+            <h2>Life is Complicated... Getting Help is Not</h2>
+            <p>This resource guide will help you find the support you need.</p>
+            <p>By exploring this website, you'll learn:</p>
+            <ol>
+                <p>Where to go for emotional support</li>
+                <li>Where to get help for suicidal ideation for yourself or a friend</li>
+                <li>What help looks like</li>
+                <li>How to access important resources both in school and at home</li>
+            </ol>
+        </div>
+        
+        <div class="resource-finder">
+            <h2>Find the Right Resources for You</h2>
+            <p>Answer the questions below to discover resources tailored to your needs:</p>
+            
+            <div class="resource-section">
+                <div class="question-container">
+                    <div class="question" onclick="toggleOptions('mental-health')">
+                        Mental Health Concerns
+                    </div>
+                    <div class="options-container" id="mental-health-options">
+                        <button class="option-btn blue" onclick="selectOption('anxiety')">Anxiety</button>
+                        <button class="option-btn pink" onclick="selectOption('depression')">Depression</button>
+                        <button class="option-btn yellow" onclick="selectOption('stress')">Stress</button>
+                        <button class="option-btn red" onclick="selectOption('suicidal-thoughts')">Suicidal Thoughts</button>
+                        <button class="option-btn green" onclick="selectOption('grief')">Grief/Loss</button>
+                    </div>
+                </div>
+                
+                <div class="question-container">
+                    <div class="question" onclick="toggleOptions('social-issues')">
+                        Social Issues
+                    </div>
+                    <div class="options-container" id="social-issues-options">
+                        <button class="option-btn red" onclick="selectOption('bullying')">Bullying</button>
+                        <button class="option-btn blue" onclick="selectOption('peer-pressure')">Peer Pressure</button>
+                        <button class="option-btn yellow" onclick="selectOption('relationship')">Relationship Problems</button>
+                        <button class="option-btn green" onclick="selectOption('friend-concern')">Concerned About a Friend</button>
+                        <button class="option-btn pink" onclick="selectOption('isolation')">Feeling Isolated</button>
+                    </div>
+                </div>
+                
+                <div class="question-container">
+                    <div class="question" onclick="toggleOptions('academic')">
+                        Academic Challenges
+                    </div>
+                    <div class="options-container" id="academic-options">
+                        <button class="option-btn green" onclick="selectOption('school-stress')">School Stress</button>
+                        <button class="option-btn blue" onclick="selectOption('time-management')">Time Management</button>
+                        <button class="option-btn yellow" onclick="selectOption('learning-difficulties')">Learning Difficulties</button>
+                        <button class="option-btn pink" onclick="selectOption('test-anxiety')">Test Anxiety</button>
+                        <button class="option-btn red" onclick="selectOption('future-planning')">Future Planning Anxiety</button>
+                    </div>
+                </div>
+                
+                <div class="question-container">
+                    <div class="question" onclick="toggleOptions('physical')">
+                        Physical Health & Wellness
+                    </div>
+                    <div class="options-container" id="physical-options">
+                        <button class="option-btn blue" onclick="selectOption('sleep-issues')">Sleep Problems</button>
+                        <button class="option-btn green" onclick="selectOption('eating-concerns')">Eating Concerns</button>
+                        <button class="option-btn yellow" onclick="selectOption('substance-use')">Substance Use</button>
+                        <button class="option-btn pink" onclick="selectOption('self-care')">Self-Care</button>
+                        <button class="option-btn red" onclick="selectOption('physical-health')">Physical Health Issues</button>
+                    </div>
+                </div>
+                
+                <div class="question-container">
+                    <div class="question" onclick="toggleOptions('identity')">
+                        Identity & Personal Growth
+                    </div>
+                    <div class="options-container" id="identity-options">
+                        <button class="option-btn pink" onclick="selectOption('lgbtq')">LGBTQ+ Support</button>
+                        <button class="option-btn blue" onclick="selectOption('self-esteem')">Self-Esteem</button>
+                        <button class="option-btn yellow" onclick="selectOption('cultural-identity')">Cultural Identity</button>
+                        <button class="option-btn green" onclick="selectOption('body-image')">Body Image</button>
+                        <button class="option-btn red" onclick="selectOption('family-issues')">Family Issues</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="results" class="results-container">
+                <h3>Recommended Resources:</h3>
+                <div id="resource-results"></div>
+            </div>
+        </div>
+        
+        <div class="report-section">
+            <h2>See Something Concerning?</h2>
+            <p>If you notice something concerning or want to report an issue anonymously, you can email:</p>
+            <a href="mailto:speakup@mhrd.org" class="report-email">speakup@mhrd.org</a>
+            <p>Your voice matters. Speaking up can help keep our school community safe.</p>
+        </div>
+        
+        <div class="hotlines">
+            <h2>Important Hotlines & Resources</h2>
+            <ul class="hotline-list">
+                <li class="hotline-item">
+                    <span class="hotline-name">National Suicide Prevention Lifeline</span>
+                    <span class="hotline-number">1-800-273-8255 (TALK)</span>
+                </li>
+                <li class="hotline-item">
+                    <span class="hotline-name">Crisis Text Line</span>
+                    <span class="hotline-number">Text TALK to 741741</span>
+                </li>
+                <li class="hotline-item">
+                    <span class="hotline-name">NJ Suicide Prevention Hopeline</span>
+                    <span class="hotline-number">1-855-654-6735</span>
+                </li>
+                <li class="hotline-item">
+                    <span class="hotline-name">2nd Floor Youth Helpline</span>
+                    <span class="hotline-number">Call or Text 1-888-222-2228</span>
+                </li>
+                <li class="hotline-item">
+                    <span class="hotline-name">TrevorLifeline (LGBTQ+ Youth)</span>
+                    <span class="hotline-number">1-866-488-7386</span>
+                </li>
+                <li class="hotline-item">
+                    <span class="hotline-name">Trevor Text</span>
+                    <span class="hotline-number">Text TALK to 678678</span>
+                </li>
+                <li class="hotline-item">
+                    <span class="hotline-name">SafeSpace App</span>
+                    <span class="hotline-number"><a href="https://www.vibrant.org/safespace/" target="_blank">Download</a></span>
+                </li>
+                <li class="hotline-item">
+                    <span class="hotline-name">MY3 App</span>
+                    <span class="hotline-number"><a href="https://my3app.org/" target="_blank">Download</a></span>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="checkbox-option">
-      <input type="checkbox" class="btn-option" data-tag="suicidal" id="suicidal">
-      <label for="suicidal">I’m having thoughts of suicide</label>
-    </div>
-    <div class="checkbox-option">
-      <input type="checkbox" class="btn-option" data-tag="depression" id="depression">
-      <label for="depression">I feel sad or hopeless</label>
-    </div>
-  </div>
+    
+    <footer>
+        <p>Morris Knolls High School Mental Health Resources</p>
+        <p>Remember: Life is complicated, but getting help is not!</p>
+    </footer>
 
-  <div class="category">
-    <h2>Bullying & Conflict</h2>
-    <div class="checkbox-option">
-      <input type="checkbox" class="btn-option" data-tag="bullied" id="bullied">
-      <label for="bullied">I'm being bullied</label>
-    </div>
-    <div class="checkbox-option">
-      <input type="checkbox" class="btn-option" data-tag="fighting" id="fighting">
-      <label for="fighting">I'm having conflict with someone</label>
-    </div>
-    <div class="checkbox-option">
-      <input type="checkbox" class="btn-option" data-tag="report" id="report">
-      <label for="report">I saw something bad and want to report it</label>
-    </div>
-  </div>
-
-  <div class="category">
-    <h2>Helping a Friend</h2>
-    <div class="checkbox-option">
-      <input type="checkbox" class="btn-option" data-tag="friend-suicidal" id="friend-suicidal">
-      <label for="friend-suicidal">I'm worried my friend is suicidal</label>
-    </div>
-    <div class="checkbox-option">
-      <input type="checkbox" class="btn-option" data-tag="friend-help" id="friend-help">
-      <label for="friend-help">I want to help a friend but don’t know how</label>
-    </div>
-  </div>
-
-  <div class="category">
-    <h2>Home & Physical Safety</h2>
-    <div class="checkbox-option">
-      <input type="checkbox" class="btn-option" data-tag="unsafe-home" id="unsafe-home">
-      <label for="unsafe-home">I don’t feel safe at home</label>
-    </div>
-    <div class="checkbox-option">
-      <input type="checkbox" class="btn-option" data-tag="physical-health" id="physical-health">
-      <label for="physical-health">I have a physical health issue</label>
-    </div>
-  </div>
-
-  <button id="submitBtn">Get Help</button>
-
-  <div id="results"></div>
-</div>
-
-<footer>
-  <p><strong>Need to report something anonymously?</strong> Email <a href="mailto:speakup@mhrd.org">speakup@mhrd.org</a></p>
-  <p>National Suicide Prevention Lifeline: <strong>1-800-273-TALK (8255)</strong></p>
-  <p>Text Crisis Line: Text <strong>TALK</strong> to <strong>741741</strong></p>
-  <p>TrevorLifeline (LGBTQ+): <strong>1-866-488-7386</strong></p>
-</footer>
-
-<script src="script.js"></script>
-
+    <script>
+        function toggleOptions(id) {
+            const optionsContainer = document.getElementById(`${id}-options`);
+            if (optionsContainer.style.display === 'block') {
+                optionsContainer.style.display = 'none';
+            } else {
+                optionsContainer.style.display = 'block';
+            }
+        }
+        
+        const selectedOptions = new Set();
+        
+        function selectOption(option) {
+            if (selectedOptions.has(option)) {
+                selectedOptions.delete(option);
+            } else {
+                selectedOptions.add(option);
+            }
+            updateResults();
+        }
+        
+        function updateResults() {
+            const resultsContainer = document.getElementById('results');
+            const resourceResults = document.getElementById('resource-results');
+            
+            if (selectedOptions.size === 0) {
+                resultsContainer.style.display = 'none';
+                return;
+            }
+            
+            resultsContainer.style.display = 'block';
+            resourceResults.innerHTML = '';
+            
+            const resources = {
+                // Mental Health Concerns
+                'anxiety': [
+                    { type: 'school', title: 'School Counseling Office', description: 'Your school counselor can help with anxiety management techniques and additional support.' },
+                    { type: 'hotline', title: '2nd Floor Youth Helpline', description: 'Call or text 1-888-222-2228 for support with anxiety and stress.' },
+                    { type: 'app', title: 'MY3 App', description: 'Download the MY3 app to stay connected with trusted people when feeling anxious.' }
+                ],
+                'depression': [
+                    { type: 'school', title: 'School Counseling Office', description: 'Your school counselor can provide support and resources for managing depression.' },
+                    { type: 'hotline', title: 'National Suicide Prevention Lifeline', description: '1-800-273-8255 (TALK) - For emotional support, even if you\'re not experiencing suicidal thoughts.' },
+                    { type: 'community', title: 'American Foundation for Suicide Prevention', description: 'Visit <a href="https://afsp.org/" target="_blank">afsp.org</a> for resources on depression and mental health.' }
+                ],
+                'stress': [
+                    { type: 'school', title: 'School Counseling Office', description: 'Your school counselor can help with stress management techniques.' },
+                    { type: 'app', title: 'SafeSpace App', description: 'Check out the SafeSpace app for stress management tools and resources.' },
+                    { type: 'school', title: 'School Nurse', description: 'Visit the school nurse to discuss physical symptoms of stress and get support.' }
+                ],
+                'suicidal-thoughts': [
+                    { type: 'hotline', title: 'National Suicide Prevention Lifeline', description: '1-800-273-8255 (TALK) - Available 24/7 for immediate support.' },
+                    { type: 'school', title: 'School Counseling Office or CST', description: 'Immediate in-school support for crisis situations.' },
+                    { type: 'hotline', title: 'Crisis Text Line', description: 'Text TALK to 741741 for immediate texting support.' },
+                    { type: 'app', title: 'MY3 App', description: 'An app specifically designed to help during suicidal crises.' }
+                ],
+                'grief': [
+                    { type: 'school', title: 'School Counseling Office', description: 'Your counselor can provide grief counseling or connect you with support groups.' },
+                    { type: 'school', title: 'School Psychologist', description: 'Available through the CST office for specialized grief support.' },
+                    { type: 'community', title: 'Good Grief NJ', description: 'Local support programs for young people experiencing loss.' }
+                ],
+                
+                // Social Issues
+                'bullying': [
+                    { type: 'school', title: 'School Counseling Office', description: 'Report bullying to your counselor for immediate intervention.' },
+                    { type: 'school', title: 'Anti-Bullying Specialist', description: 'Morris Knolls has a designated anti-bullying specialist to address these issues.' },
+                    { type: 'community', title: 'Anonymous Reporting', description: 'Email <a href="mailto:speakup@mhrd.org">speakup@mhrd.org</a> to report bullying anonymously.' }
+                ],
+                'peer-pressure': [
+                    { type: 'school', title: 'School Counseling Office', description: 'Counselors can provide strategies for dealing with peer pressure.' },
+                    { type: 'hotline', title: '2nd Floor Youth Helpline', description: 'Call or text 1-888-222-2228 for advice on handling peer pressure situations.' }
+                ],
+                'relationship': [
+                    { type: 'school', title: 'School Counseling Office', description: 'Counselors can provide support for relationship challenges.' },
+                    { type: 'hotline', title: '2nd Floor Youth Helpline', description: 'Call or text 1-888-222-2228 for relationship advice and support.' }
+                ],
+                'friend-concern': [
+                    { type: 'school', title: 'School Counseling Office', description: 'Speak to a counselor about concerns for a friend - you can help save a life.' },
+                    { type: 'hotline', title: 'National Suicide Prevention Lifeline', description: '1-800-273-8255 (TALK) - You can call about concerns for a friend.' },
+                    { type: 'community', title: 'Anonymous Reporting', description: 'Email <a href="mailto:speakup@mhrd.org">speakup@mhrd.org</a> if you\'re concerned about a friend\'s wellbeing.' }
+                ],
+                'isolation': [
+                    { type: 'school', title: 'School Counseling Office', description: 'Your counselor can help connect you with social opportunities and support.' },
+                    { type: 'school', title: 'Student Activities Office', description: 'Ask about clubs and activities to connect with other students.' },
+                    { type: 'hotline', title: '2nd Floor Youth Helpline', description: 'Call or text 1-888-222-2228 when feeling isolated or lonely.' }
+                ],
+                
+                // Academic Challenges
+                'school-stress': [
+                    { type: 'school', title: 'School Counseling Office', description: 'Your counselor can help with academic planning and stress management.' },
+                    { type: 'school', title: 'Academic Support Services', description: 'Ask about tutoring and academic intervention programs.' }
+                ],
+                'time-management': [
+                    { type: 'school', title: 'School Counseling Office', description: 'Counselors can provide time management strategies and tools.' },
+                    { type: 'school', title: 'Study Skills Support', description: 'Ask your counselor about workshops or resources for improving study skills.' }
+                ],
+                'learning-difficulties': [
+                    { type: 'school', title: 'Child Study Team', description: 'The CST can evaluate and provide support for learning challenges.' },
+                    { type: 'school', title: 'Section 504 Coordinator', description: 'For accommodations related to learning difficulties.' }
+                ],
+                'test-anxiety': [
+                    { type: 'school', title: 'School Counseling Office', description: 'Strategies for managing test anxiety and building confidence.' },
+                    { type: 'school', title: 'School Psychologist', description: 'Available through the CST for specific anxiety management techniques.' }
+                ],
+                'future-planning': [
+                    { type: 'school', title: 'School Counseling Office', description: 'Career and college counseling services to help plan your future.' },
+                    { type: 'school', title: 'Career Center', description: 'Resources for exploring career options and preparing for the future.' }
+                ],
+                
+                // Physical Health & Wellness
+                'sleep-issues': [
+                    { type: 'school', title: 'School Nurse', description: 'Discuss sleep concerns and get recommendations for better sleep hygiene.' },
+                    { type: 'school', title: 'School Counseling Office', description: 'Support for stress that may be affecting sleep patterns.' }
+                ],
+                'eating-concerns': [
+                    { type: 'school', title: 'School Nurse', description: 'Confidential support for eating concerns and nutritional guidance.' },
+                    { type: 'school', title: 'School Counseling Office', description: 'Emotional support and referrals for eating-related concerns.' },
+                    { type: 'hotline', title: 'National Eating Disorders Association', description: '1-800-931-2237 - Specialized support for eating disorders.' }
+                ],
+                'substance-use': [
+                    { type: 'school', title: 'Student Assistance Counselor', description: 'Confidential support for substance use concerns.' },
+                    { type: 'hotline', title: 'Substance Abuse Helpline', description: '1-844-732-2200 - 24/7 support for substance use issues.' }
+                ],
+                'self-care': [
+                    { type: 'school', title: 'School Counseling Office', description: 'Resources and strategies for developing healthy self-care routines.' },
+                    { type: 'school', title: 'School Nurse', description: 'Information on physical health components of self-care.' }
+                ],
+                'physical-health': [
+                    { type: 'school', title: 'School Nurse', description: 'First point of contact for any physical health concerns during school hours.' },
+                    { type: 'school', title: 'School Counseling Office', description: 'Support for emotional aspects of physical health challenges.' }
+                ],
+                
+                // Identity & Personal Growth
+                'lgbtq': [
+                    { type: 'hotline', title: 'TrevorLifeline', description: '1-866-488-7386 - Crisis intervention for LGBTQ+ youth.' },
+                    { type: 'hotline', title: 'Trevor Text', description: 'Text TALK to 678678 for LGBTQ+ specific support.' },
+                    { type: 'school', title: 'GSA Club', description: 'Morris Knolls\' Gender-Sexuality Alliance provides peer support.' }
+                ],
+                'self-esteem': [
+                    { type: 'school', title: 'School Counseling Office', description: 'Support and strategies for building healthy self-esteem.' },
+                    { type: 'hotline', title: '2nd Floor Youth Helpline', description: 'Call or text 1-888-222-2228 for support with self-image concerns.' }
+                ],
+                'cultural-identity': [
+                    { type: 'school', title: 'School Counseling Office', description: 'Support for cultural identity exploration and challenges.' },
+                    { type: 'school', title: 'Diversity Clubs', description: 'Ask about cultural clubs that may provide community and support.' }
+                ],
+                'body-image': [
+                    { type: 'school', title: 'School Counseling Office', description: 'Support for body image concerns and building a positive self-image.' },
+                    { type: 'hotline', title: 'National Eating Disorders Association', description: '1-800-931-2237 - Support for body image concerns.' }
+                ],
+                'family-issues': [
+                    { type: 'school', title: 'School Counseling Office', description: 'Confidential support for family challenges and conflicts.' },
+                    { type: 'school', title: 'School Social Worker', description: 'Available through the CST for family support and resources.' },
+                    { type: 'hotline', title: '2nd Floor Youth Helpline', description: 'Call or text 1-888-222-2228 for advice about family situations.' }
+                ]
+            };
+            
+            // Create a set to track which resources have been added to avoid duplicates
+            const addedResources = new Set();
+            
+            selectedOptions.forEach(option => {
+                if (resources[option]) {
+                    resources[option].forEach(resource => {
+                        // Create a unique key for each resource
+                        const resourceKey = `${resource.type}-${resource.title}`;
+                        
+                        // Only add the resource if it hasn't been added yet
+                        if (!addedResources.has(resourceKey)) {
+                            addedResources.add(resourceKey);
+                            
+                            const resourceCard = document.createElement('div');
+                            resourceCard.className = `resource-card ${resource.type}`;
+                            resourceCard.innerHTML = `
+                                <h4>${resource.title}</h4>
+                                <p>${resource.description}</p>
+                            `;
+                            resourceResults.appendChild(resourceCard);
+                        }
+                    });
+                }
+            });
+            
+            // Always add National Suicide Prevention Lifeline as a critical resource
+            if (!addedResources.has('hotline-National Suicide Prevention Lifeline')) {
+                const suicideHotlineCard = document.createElement('div');
+                suicideHotlineCard.className = 'resource-card hotline';
+                suicideHotlineCard.innerHTML = `
+                    <h4>National Suicide Prevention Lifeline</h4>
+                    <p>1-800-273-8255 (TALK) - Available 24/7 for emotional support and crisis intervention.</p>
+                `;
+                resourceResults.appendChild(suicideHotlineCard);
+            }
+        }
+    </script>
 </body>
 </html>
