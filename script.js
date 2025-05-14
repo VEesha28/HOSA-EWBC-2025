@@ -1,6 +1,6 @@
 // Set to store selected tags
 const selectedTags = new Set();
-const buttons = document.querySelectorAll('.btn-option');
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 const results = document.getElementById('results');
 
 // Help responses for each tag
@@ -17,18 +17,16 @@ const helpResponses = {
   physical-health: "Visit the school nurse or let a teacher know so they can help you get support."
 };
 
-// Add click event listeners to all buttons
-buttons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const tag = btn.getAttribute('data-tag');
-    if (selectedTags.has(tag)) {
-      // If already selected, deselect it
-      selectedTags.delete(tag);
-      btn.classList.remove('selected');
-    } else {
-      // Otherwise, select it
+// Add change event listeners to all checkboxes
+checkboxes.forEach(checkbox => {
+  checkbox.addEventListener('change', () => {
+    const tag = checkbox.getAttribute('data-tag');
+    if (checkbox.checked) {
+      // Add tag if checkbox is checked
       selectedTags.add(tag);
-      btn.classList.add('selected');
+    } else {
+      // Remove tag if checkbox is unchecked
+      selectedTags.delete(tag);
     }
   });
 });
