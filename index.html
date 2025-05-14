@@ -33,26 +33,15 @@
       margin-bottom: 2em;
     }
 
-    .btn-option {
-      display: inline-block;
-      margin: 0.5em;
-      padding: 1em;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1em;
-      transition: 0.3s;
+    .checkbox-option {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5em;
     }
 
-    .btn-option.selected {
-      outline: 3px solid black;
+    .checkbox-option input {
+      margin-right: 0.5em;
     }
-
-    .blue { background-color: #cce5ff; }
-    .yellow { background-color: #fff3cd; }
-    .pink { background-color: #fcd5ce; }
-    .green { background-color: #d4edda; }
-    .red { background-color: #f8d7da; }
 
     #results {
       margin-top: 3em;
@@ -92,28 +81,58 @@
 <div class="container">
   <div class="category">
     <h2>Mental & Emotional Health</h2>
-    <button class="btn-option blue" data-tag="anxiety">I feel anxious or overwhelmed</button>
-    <button class="btn-option blue" data-tag="suicidal">I’m having thoughts of suicide</button>
-    <button class="btn-option blue" data-tag="depression">I feel sad or hopeless</button>
+    <div class="checkbox-option">
+      <input type="checkbox" class="btn-option" data-tag="anxiety" id="anxiety">
+      <label for="anxiety">I feel anxious or overwhelmed</label>
+    </div>
+    <div class="checkbox-option">
+      <input type="checkbox" class="btn-option" data-tag="suicidal" id="suicidal">
+      <label for="suicidal">I’m having thoughts of suicide</label>
+    </div>
+    <div class="checkbox-option">
+      <input type="checkbox" class="btn-option" data-tag="depression" id="depression">
+      <label for="depression">I feel sad or hopeless</label>
+    </div>
   </div>
 
   <div class="category">
     <h2>Bullying & Conflict</h2>
-    <button class="btn-option red" data-tag="bullied">I'm being bullied</button>
-    <button class="btn-option red" data-tag="fighting">I'm having conflict with someone</button>
-    <button class="btn-option red" data-tag="report">I saw something bad and want to report it</button>
+    <div class="checkbox-option">
+      <input type="checkbox" class="btn-option" data-tag="bullied" id="bullied">
+      <label for="bullied">I'm being bullied</label>
+    </div>
+    <div class="checkbox-option">
+      <input type="checkbox" class="btn-option" data-tag="fighting" id="fighting">
+      <label for="fighting">I'm having conflict with someone</label>
+    </div>
+    <div class="checkbox-option">
+      <input type="checkbox" class="btn-option" data-tag="report" id="report">
+      <label for="report">I saw something bad and want to report it</label>
+    </div>
   </div>
 
   <div class="category">
     <h2>Helping a Friend</h2>
-    <button class="btn-option pink" data-tag="friend-suicidal">I'm worried my friend is suicidal</button>
-    <button class="btn-option pink" data-tag="friend-help">I want to help a friend but don’t know how</button>
+    <div class="checkbox-option">
+      <input type="checkbox" class="btn-option" data-tag="friend-suicidal" id="friend-suicidal">
+      <label for="friend-suicidal">I'm worried my friend is suicidal</label>
+    </div>
+    <div class="checkbox-option">
+      <input type="checkbox" class="btn-option" data-tag="friend-help" id="friend-help">
+      <label for="friend-help">I want to help a friend but don’t know how</label>
+    </div>
   </div>
 
   <div class="category">
     <h2>Home & Physical Safety</h2>
-    <button class="btn-option yellow" data-tag="unsafe-home">I don’t feel safe at home</button>
-    <button class="btn-option yellow" data-tag="physical-health">I have a physical health issue</button>
+    <div class="checkbox-option">
+      <input type="checkbox" class="btn-option" data-tag="unsafe-home" id="unsafe-home">
+      <label for="unsafe-home">I don’t feel safe at home</label>
+    </div>
+    <div class="checkbox-option">
+      <input type="checkbox" class="btn-option" data-tag="physical-health" id="physical-health">
+      <label for="physical-health">I have a physical health issue</label>
+    </div>
   </div>
 
   <button id="submitBtn">Get Help</button>
