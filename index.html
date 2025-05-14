@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Morris Knolls - Crisis Resource Guide</title>
   <style>
     body {
@@ -89,7 +90,6 @@
 </header>
 
 <div class="container">
-  
   <div class="category">
     <h2>Mental & Emotional Health</h2>
     <button class="btn-option blue" data-tag="anxiety">I feel anxious or overwhelmed</button>
@@ -119,7 +119,6 @@
   <button id="submitBtn">Get Help</button>
 
   <div id="results"></div>
-
 </div>
 
 <footer>
@@ -129,55 +128,7 @@
   <p>TrevorLifeline (LGBTQ+): <strong>1-866-488-7386</strong></p>
 </footer>
 
-<script>
-  const selectedTags = new Set();
-  const buttons = document.querySelectorAll('.btn-option');
-  const results = document.getElementById('results');
-
-  const helpResponses = {
-    anxiety: "Talk to a school counselor or a trusted adult. You can also text 'TALK' to 741741 for free 24/7 crisis support.",
-    suicidal: "Please call 1-800-273-TALK (8255) or talk to someone immediately. You can also walk into the Counseling or CST Office.",
-    depression: "You’re not alone. Reach out to a trusted adult or use the MY3 App (https://my3app.org) to stay connected to support.",
-    bullied: "Let a teacher, counselor, or administrator know. You can also email anonymously to speakup@mhrd.org.",
-    fighting: "Conflict can be scary. Talk to a school staff member or peer mediator for help resolving issues.",
-    report: "You can anonymously report concerns by emailing speakup@mhrd.org.",
-    friend-suicidal: "Call 1-800-273-TALK (8255) on your friend's behalf or get help from a counselor immediately.",
-    friend-help: "You can be a lifeline. Talk to a trusted adult about how to support your friend.",
-    unsafe-home: "Tell a trusted adult at school or email speakup@mhrd.org. You deserve to feel safe.",
-    physical-health: "Visit the school nurse or let a teacher know so they can help you get support."
-  };
-
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const tag = btn.getAttribute('data-tag');
-      if (selectedTags.has(tag)) {
-        selectedTags.delete(tag);
-        btn.classList.remove('selected');
-      } else {
-        selectedTags.add(tag);
-        btn.classList.add('selected');
-      }
-    });
-  });
-
-  document.getElementById('submitBtn').addEventListener('click', () => {
-    if (selectedTags.size === 0) {
-      results.innerHTML = "<p>Please select at least one issue above.</p>";
-      results.style.display = "block";
-      return;
-    }
-
-    let output = "<h2>Here’s how you can get help:</h2><ul>";
-    selectedTags.forEach(tag => {
-      if (helpResponses[tag]) {
-        output += `<li>${helpResponses[tag]}</li>`;
-      }
-    });
-    output += "</ul><p>You’re not alone. Help is here at Morris Knolls and beyond. 💛</p>";
-    results.innerHTML = output;
-    results.style.display = "block";
-  });
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
