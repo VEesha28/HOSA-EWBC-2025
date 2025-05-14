@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Morris Knolls - Crisis Resource Guide</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9fcff;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #0047ab;
+      color: white;
+      padding: 2em;
+      text-align: center;
+    }
+
+    h1, h2 {
+      margin: 0.5em 0;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: auto;
+      padding: 2em;
+    }
+
+    .category {
+      margin-bottom: 2em;
+    }
+
+    .btn-option {
+      display: inline-block;
+      margin: 0.5em;
+      padding: 1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: 0.3s;
+    }
+
+    .btn-option.selected {
+      outline: 3px solid black;
+    }
+
+    .blue { background-color: #cce5ff; }
+    .yellow { background-color: #fff3cd; }
+    .pink { background-color: #fcd5ce; }
+    .green { background-color: #d4edda; }
+    .red { background-color: #f8d7da; }
+
+    #results {
+      margin-top: 3em;
+      background: #ffffff;
+      padding: 1.5em;
+      border-left: 5px solid #0047ab;
+      display: none;
+    }
+
+    #submitBtn {
+      display: block;
+      margin: 2em auto;
+      padding: 1em 2em;
+      font-size: 1.2em;
+      background-color: #0047ab;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    footer {
+      margin-top: 3em;
+      padding: 2em;
+      background: #eee;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Morris Knolls Student Support</h1>
+  <p>Your guide to finding help when life feels overwhelming.</p>
+</header>
+
+<div class="container">
+  
+  <div class="category">
+    <h2>Mental & Emotional Health</h2>
+    <button class="btn-option blue" data-tag="anxiety">I feel anxious or overwhelmed</button>
+    <button class="btn-option blue" data-tag="suicidal">I’m having thoughts of suicide</button>
+    <button class="btn-option blue" data-tag="depression">I feel sad or hopeless</button>
+  </div>
+
+  <div class="category">
+    <h2>Bullying & Conflict</h2>
+    <button class="btn-option red" data-tag="bullied">I'm being bullied</button>
+    <button class="btn-option red" data-tag="fighting">I'm having conflict with someone</button>
+    <button class="btn-option red" data-tag="report">I saw something bad and want to report it</button>
+  </div>
+
+  <div class="category">
+    <h2>Helping a Friend</h2>
+    <button class="btn-option pink" data-tag="friend-suicidal">I'm worried my friend is suicidal</button>
+    <button class="btn-option pink" data-tag="friend-help">I want to help a friend but don’t know how</button>
+  </div>
+
+  <div class="category">
+    <h2>Home & Physical Safety</h2>
+    <button class="btn-option yellow" data-tag="unsafe-home">I don’t feel safe at home</button>
+    <button class="btn-option yellow" data-tag="physical-health">I have a physical health issue</button>
+  </div>
+
+  <button id="submitBtn">Get Help</button>
+
+  <div id="results"></div>
+
+</div>
+
+<footer>
+  <p><strong>Need to report something anonymously?</strong> Email <a href="mailto:speakup@mhrd.org">speakup@mhrd.org</a></p>
+  <p>National Suicide Prevention Lifeline: <strong>1-800-273-TALK (8255)</strong></p>
+  <p>Text Crisis Line: Text <strong>TALK</strong> to <strong>741741</strong></p>
+  <p>TrevorLifeline (LGBTQ+): <strong>1-866-488-7386</strong></p>
+</footer>
+
+<script>
+  const selectedTags = new Set();
+  const buttons = document.querySelectorAll('.btn-option');
+  const results = document.getElementById('results');
+
+  const helpResponses = {
+    anxiety: "Talk to a school counselor or a trusted adult. You can also text 'TALK' to 741741 for free 24/7 crisis support.",
+    suicidal: "Please call 1-800-273-TALK (8255) or talk to someone immediately. You can also walk into the Counseling or CST Office.",
+    depression: "You’re not alone. Reach out to a trusted adult or use the MY3 App (https://my3app.org) to stay connected to support.",
+    bullied: "Let a teacher, counselor, or administrator know. You can also email anonymously to speakup@mhrd.org.",
+    fighting: "Conflict can be scary. Talk to a school staff member or peer mediator for help resolving issues.",
+    report: "You can anonymously report concerns by emailing speakup@mhrd.org.",
+    friend-suicidal: "Call 1-800-273-TALK (8255) on your friend's behalf or get help from a counselor immediately.",
+    friend-help: "You can be a lifeline. Talk to a trusted adult about how to support your friend.",
+    unsafe-home: "Tell a trusted adult at school or email speakup@mhrd.org. You deserve to feel safe.",
+    physical-health: "Visit the school nurse or let a teacher know so they can help you get support."
+  };
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tag = btn.getAttribute('data-tag');
+      if (selectedTags.has(tag)) {
+        selectedTags.delete(tag);
+        btn.classList.remove('selected');
+      } else {
+        selectedTags.add(tag);
+        btn.classList.add('selected');
+      }
+    });
+  });
+
+  document.getElementById('submitBtn').addEventListener('click', () => {
+    if (selectedTags.size === 0) {
+      results.innerHTML = "<p>Please select at least one issue above.</p>";
+      results.style.display = "block";
+      return;
+    }
+
+    let output = "<h2>Here’s how you can get help:</h2><ul>";
+    selectedTags.forEach(tag => {
+      if (helpResponses[tag]) {
+        output += `<li>${helpResponses[tag]}</li>`;
+      }
+    });
+    output += "</ul><p>You’re not alone. Help is here at Morris Knolls and beyond. 💛</p>";
+    results.innerHTML = output;
+    results.style.display = "block";
+  });
+</script>
+
+</body>
+</html>
